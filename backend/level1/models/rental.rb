@@ -6,7 +6,7 @@ class Rental
     @id = params['id']
 
     # belongs_to :car
-    @car = database.find('cars' ,params['car_id'])
+    @car = database.find('cars', params['car_id'])
 
     @start_date = Time.parse params['start_date']
     @end_date = Time.parse params['end_date']
