@@ -9,8 +9,6 @@ require './models/commission'
 
 class Main
 
-  attr_accessor :data
-
   def initialize
     # I chose to create an object 'Database' which load a json file, parse the datas into objects based on my models
     @data = Database.new('./data.json')
