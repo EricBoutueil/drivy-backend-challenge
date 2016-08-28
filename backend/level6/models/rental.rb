@@ -35,11 +35,11 @@ class Rental
         when 0
           calculated_ppd += @car.price_per_day
         when 1..3
-          calculated_ppd += (@car.price_per_day - @car.price_per_day*0.1)
+          calculated_ppd += @car.price_per_day*0.9
         when 4..9
-          calculated_ppd += (@car.price_per_day - @car.price_per_day*0.3)
+          calculated_ppd += @car.price_per_day*0.7
         else
-          calculated_ppd += (@car.price_per_day - @car.price_per_day*0.5)
+          calculated_ppd += @car.price_per_day*0.5
       end
     end
 
@@ -55,7 +55,7 @@ class Rental
         when 'driver'
           amount = price + deductible_reduction_calculator
         when 'owner'
-          amount = price - price*0.3
+          amount = price*0.7
         when 'drivy'
           amount = @commission.drivy_fee + deductible_reduction_calculator
         else

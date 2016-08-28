@@ -28,11 +28,11 @@ class RentalModification
         when 0
           calculated_ppd += @car.price_per_day
         when 1..3
-          calculated_ppd += (@car.price_per_day - @car.price_per_day*0.1)
+          calculated_ppd += @car.price_per_day*0.9
         when 4..9
-          calculated_ppd += (@car.price_per_day - @car.price_per_day*0.3)
+          calculated_ppd += @car.price_per_day*0.7
         else
-          calculated_ppd += (@car.price_per_day - @car.price_per_day*0.5)
+          calculated_ppd += @car.price_per_day*0.5
       end
     end
 
