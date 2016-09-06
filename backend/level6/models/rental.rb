@@ -25,11 +25,11 @@ class Rental < RentalBase
       type = (a == 'driver') ? 'debit' : 'credit'
       case a
         when 'driver'
-          amount = price + deductible_reduction_calculator
+          amount = price_with_deductible_reduction
         when 'owner'
-          amount = price*0.7
+          amount = owner_gains
         when 'drivy'
-          amount = @commission.drivy_fee + deductible_reduction_calculator
+          amount = drivy_gains
         else
           amount = @commission.send("#{a}_fee")
       end

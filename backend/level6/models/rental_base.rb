@@ -28,6 +28,18 @@ class RentalBase
     @deductible_reduction ? 400*duration : 0
   end
 
+  def price_with_deductible_reduction
+    price + deductible_reduction_calculator
+  end
+
+  def owner_gains
+    price*0.7
+  end
+
+  def drivy_gains
+    @commission.drivy_fee + deductible_reduction_calculator
+  end
+
   def duration
     ((@end_date - @start_date)/(60*60*24)+1).to_i
   end

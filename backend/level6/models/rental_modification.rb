@@ -37,16 +37,17 @@ class RentalModification < RentalBase
   private
 
   def refund_driver
+    # When new price is lower
     actions = Array.new
     %w( driver owner insurance assistance drivy ).each do |a|
       type = (a == 'driver') ? 'credit' : 'debit'
       case a
         when 'driver'
-          amount = @rental.price + @rental.deductible_reduction_calculator - price - deductible_reduction_calculator
+          amount = @rental.price_with_deductible_reduction - price_with_deductible_reduction
         when 'owner'
-          amount = -1*(price*0.7 - @rental.price*0.7)
+          amount = -1*(owner_gains - @rental.owner_gains)
         when 'drivy'
-          amount = @rental.commission.drivy_fee - @commission.drivy_fee + @rental.deductible_reduction_calculator - deductible_reduction_calculator
+          amount = @rental.drivy_gains - drivy_gains
         else
           amount = @rental.commission.send("#{a}_fee") - @commission.send("#{a}_fee")
       end
@@ -56,16 +57,17 @@ class RentalModification < RentalBase
   end
 
   def debit_driver
+    # When new price is higher
     actions = Array.new
     %w( driver owner insurance assistance drivy ).each do |a|
       type = (a == 'driver') ? 'debit' : 'credit'
       case a
         when 'driver'
-          amount = price - @rental.price + deductible_reduction_calculator - @rental.deductible_reduction_calculator
+          amount = price_with_deductible_reduction - @rental.price_with_deductible_reduction
         when 'owner'
-          amount = -1*(@rental.price*0.7 - price*0.7)
+          amount = -1*(@rental.owner_gains - owner_gains)
         when 'drivy'
-          amount = @commission.drivy_fee - @rental.deductible_reduction_calculator - @rental.commission.drivy_fee + deductible_reduction_calculator
+          amount = drivy_gains - @rental.drivy_gains
         else
           amount = @commission.send("#{a}_fee") - @rental.commission.send("#{a}_fee")
       end
